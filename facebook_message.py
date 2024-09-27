@@ -3,23 +3,15 @@ import csv
 import random
 from playwright.async_api import async_playwright
 
-# Facebook credentials
-facebook_email = "03098719135"  # Replace with your email
-facebook_password = "zaighum987"  # Replace with your password
+async def main(facebook_email, facebook_password, csv_file):
+    messages = [
+        "Hello! I hope you're doing well.",
+        "Hi there! Just wanted to reach out and say hi.",
+        "Hey! How's everything going?",
+        "Greetings! I wanted to connect with you.",
+        "Hi! Hope you’re having a great day!"
+    ]
 
-# CSV file path containing member data
-csv_file = "/home/jobless-nigga/Documents/facebook_group_messagess_bot/facebook_group_members.csv"  # Change this to your desired path
-
-# Define message variations
-messages = [
-    "Hello! I hope you're doing well.",
-    "Hi there! Just wanted to reach out and say hi.",
-    "Hey! How's everything going?",
-    "Greetings! I wanted to connect with you.",
-    "Hi! Hope you’re having a great day!"
-]
-
-async def main():
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=False) 
         context = await browser.new_context()
@@ -51,9 +43,9 @@ async def main():
                 await page.wait_for_selector("div[contenteditable='true'][data-testid='conversation-compose-box']", timeout=25000)
 
                 message = random.choice(messages)
-                page.get_by_role("paragraph").click()
-                page.get_by_role("textbox", name="Message").fill(message)
-                page.get_by_label("Press Enter to send").click()
+                await page.get_by_role("paragraph").click()
+                await page.get_by_role("textbox", name="Message").fill(message)
+                await page.get_by_label("Press Enter to send").click()
 
                 print(f"Sent message to {member_link}: {message}")
 
@@ -64,4 +56,7 @@ async def main():
 
         await browser.close()
 
-asyncio.run(main())
+# If you want to run this script standalone (not through Streamlit), you can include this:
+if __name__ == "__main__":
+    # Replace with actual credentials if running directly
+    asyncio.run(main("your_email@example.com", "your_password", "facebook_group_members.csv"))
