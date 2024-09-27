@@ -1,30 +1,5 @@
 import streamlit as st
 import subprocess
-import sys
-
-# Streamlit UI for user inputs
-st.title("Facebook Group Scraper and Messenger")
-# Function to install a package
-def install(package):
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-
-# Install selenium and webdriver_manager if not already installed
-try:
-    import selenium
-except ImportError:
-    install('selenium')
-
-try:
-    import webdriver_manager
-except ImportError:
-    install('webdriver-manager')
-
-try:
-    import selenium
-    import webdriver_manager
-    print("Selenium and WebDriver Manager are installed successfully!")
-except ImportError as e:
-    print(f"Error importing module: {e}")
 
 # Input fields for Facebook credentials and group URL
 facebook_email = st.text_input("Facebook Email", placeholder="Enter your Facebook email")
