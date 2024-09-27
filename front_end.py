@@ -10,8 +10,8 @@ facebook_password = st.text_input("Facebook Password", type="password", placehol
 group_url = st.text_input("Group URL", placeholder="Enter the Facebook group URL")
 
 # Path to the backend scripts
-selenium_script = "/home/jobless-nigga/Documents/facebook_group_bot.py"
-playwright_script = "/home/jobless-nigga/Documents/facebook_group_messagess_bot/facebook_message.py"
+selenium_script = "facebook_group_bot.py"
+playwright_script = "facebook_message.py"
 
 # Buttons to start the scraping and messaging process
 if st.button("Start Scraping and Messaging"):
